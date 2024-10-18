@@ -19,7 +19,7 @@ namespace RecursionPlayground
         {
             int n = int.Parse(Console.ReadLine()); // Nacteme cislo n, pro ktere budeme pocitat jeho faktorial a n-ty prvek Fibonacciho posloupnosti.
             int factorial = Factorial(n); // Prvni zavolani pro vypocet faktorialu, ulozeni do promenne factorial.
-            int fibonacci = Fibonacci(n-2,1,1,1); // Prvni zavolani pro vypocet Fibonacciho posloupnosti, ulozeni do promenne fibonacci.
+            int fibonacci = Fibonacci(n-2,1,0,1); // Prvni zavolani pro vypocet Fibonacciho posloupnosti, ulozeni do promenne fibonacci.
             Console.WriteLine($"Pro cislo {n} je faktorial {factorial} a {n}. prvek Fibonacciho posloupnosti je {fibonacci}"); // Vypsani vysledku uzivateli.
             Console.Read();
 
@@ -38,25 +38,18 @@ namespace RecursionPlayground
         }
         static int Fibonacci(int n,int result,int x, int y)
             
-        {
-           
+        {         
             
                                                       // Console.WriteLine(result);
             if(n > 0)
             {
-            
-                x = y;
-                y = result;      
-                  
-                                                             Console.WriteLine($"{n} a {y} a {x}");
-
+                    x = y;
+                    y = result;       
+                                                            // Console.WriteLine($"{n} a {y} a {x}");
                 result = x + y;
-                Console.WriteLine("r:" + result);
-                result = Fibonacci(n-1,result,x,y);
-                                                            //Console.WriteLine("ddddd");
-                                                            
-                Console.WriteLine(result +" ddd");
-
+                                                            // Console.WriteLine("r:" + result);
+                result = Fibonacci(n-1,result,x,y);                                         
+                                                             //Console.WriteLine(result +" d");
             }
 
 

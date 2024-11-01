@@ -90,14 +90,27 @@ namespace ArrayPlayground
             for (int i = 0;i < myArray.Length;i++) 
             {
                 myArray[i] = rng.Next(0, 10);
-               // Console.WriteLine(myArray[i]);
+                Console.Write(myArray[i] + " ");
             }
 
             //TODO 9: Spočítej kolikrát se každé číslo v poli vyskytuje a spočítané četnosti vypiš do konzole.
             int[] counts = new int[10];
+            foreach (int number in myArray) 
+            {
+                counts[number]++;
+            }
+            for (int i = 0; i < counts.Length; i++)
+            {
+                Console.WriteLine("cetnost cislice " + i + " je " + counts[i]);
+            }
 
             //TODO 10: Vytvoř druhé pole, do kterého zkopíruješ prvky z prvního pole v opačném pořadí.
-
+            int[] reverseArray = new int[100];
+            for(int i = 0;i < reverseArray.Length ; i++) 
+            {
+                reverseArray[i] = myArray[myArray.Length - 1 - i];
+                Console.Write(reverseArray[i]+ " ");
+            }
 
             //Zkus is dál hrát s polem dle své libosti. Můžeš třeba prohodit dva prvky, ukládat do pole prvky nějaké posloupnosti (a pak si je vyhledávat) nebo cokoliv dalšího tě napadne
 

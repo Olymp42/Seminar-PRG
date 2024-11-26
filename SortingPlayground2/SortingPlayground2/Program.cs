@@ -17,17 +17,17 @@ namespace SortingPlayground
     {
         //Pokud si nejsi jistý/á, co dělat, podívej se do prezentace, na videa na YT, co jsem doporučoval, googluj a nebo mě zavolej a já ti poradím.
 
-        static int[] BubbleSort(int[] array)
+        static int?[] BubbleSort(int?[] array)
         {
-            int[] sortedArray = (int[])array.Clone(); // Řaď v tomto poli, ve kterém je výchoze zkopírováno všechno ze vstupního pole.
+            int?[] sortedArray = (int?[])array.Clone(); // Řaď v tomto poli, ve kterém je výchoze zkopírováno všechno ze vstupního pole.
             for (int i = 0; i < sortedArray.Length; i++)
             {
                 for ( int l = 0; l < sortedArray.Length-1; l++)
                 {
                     if (sortedArray[l] > sortedArray[l + 1])
                     {
-                     int x = sortedArray[l];
-                     int y = sortedArray[l + 1];
+                     int? x = sortedArray[l];
+                     int? y = sortedArray[l + 1];
                     sortedArray[l] = y;
                     sortedArray[l + 1] = x;
                     }
@@ -36,9 +36,9 @@ namespace SortingPlayground
             return sortedArray;
         }
 
-        static int[] SelectionSort(int[] array)
+        static int?[] SelectionSort(int?[] array)
         {
-            int[] sortedArray = (int[])array.Clone(); // Řaď v tomto poli, ve kterém je výchoze zkopírováno všechno ze vstupního pole.
+            int?[] sortedArray = (int?[])array.Clone(); // Řaď v tomto poli, ve kterém je výchoze zkopírováno všechno ze vstupního pole.
             for (int i = 0; i < sortedArray.Length-1; i++)
             {
                 int minimum = i;
@@ -51,8 +51,8 @@ namespace SortingPlayground
                 }   
                 if(minimum != i)
                     {
-                        int x = sortedArray[minimum];
-                        int y = sortedArray[i];
+                        int? x = sortedArray[minimum];
+                        int ?y = sortedArray[i];
                         sortedArray[minimum] = y;
                         sortedArray[i] = x;
                     }         
@@ -60,16 +60,16 @@ namespace SortingPlayground
             return sortedArray;
         }
 
-        static int[] InsertionSort(int[] array)
+        static int?[] InsertionSort(int?[] array)
         {
-            int[] sortedArray = (int[])array.Clone(); // Řaď v tomto poli, ve kterém je výchoze zkopírováno všechno ze vstupního pole.
+            int?[] sortedArray = (int?[])array.Clone(); // Řaď v tomto poli, ve kterém je výchoze zkopírováno všechno ze vstupního pole.
             for (int i = 1; i < sortedArray.Length;i++)
             {
                  int l = i;
                  while (l > 0 && sortedArray[l-1] > sortedArray[l])
                  {
-                        int x = sortedArray[l-1];
-                        int y = sortedArray[l];
+                        int? x = sortedArray[l-1];
+                        int? y = sortedArray[l];
                         sortedArray[l-1] = y;
                         sortedArray[l] = x;
                         l = l-1;    
@@ -78,61 +78,70 @@ namespace SortingPlayground
             }
             return sortedArray;
         }
-        static int[] MergeSort(int[]arrayOne, int[]arrayTwo, int[]array)
+        static int?[] MergeSort(int?[]arrayOne, int?[]arrayTwo, int?[]array)
         {
             
-            int[] sortedArray = new int[array.Length];
+            int?[] sortedArray = new int?[array.Length];
                 while(arrayOne.Length > 0 && arrayTwo.Length > 0)
                 {
                     if(arrayOne[0]> arrayTwo[0])
                     {
-                        sortedArray[sortedArray.Length-1] = arrayTwo[0]; /*na konec sortedArray pridam prvek na indexu 0 v arrayTwo*/
+                        sortedArray[] str_add = arrayTwo[0];
+                        arrayTwo[0] = null;
                         for(int i = 0; i < arrayTwo.Length-1; i++)   // smaze z arrayTwo element na indexu 0
                         {
                             arrayTwo[i] = arrayTwo[i+1];
+                            
                         }
+                        arrayTwo[arrayTwo.Length-1] = null;
                     }
                     else 
                     {
                         sortedArray[sortedArray.Length-1] = arrayOne[0]; /*na konec sortedArray pridam prvek na indexu 0 v arrayOne*/
+                        arrayOne[0] = null;
                         for(int i = 0; i < arrayOne.Length-1; i++)   // smaze z arrayOne element na indexu 0
                         {
                             arrayOne[i] = arrayOne[i+1];
                         }
+                        arrayOne[arrayOne.Length-1] =null;
                     }
                     while (arrayOne.Length > 0 )
                     {
                         sortedArray[sortedArray.Length-1] = arrayOne[0]; /*na konec sortedArray pridam prvek na indexu 0 v arrayOne*/
+                        arrayOne[0] = null;
                         for(int i = 0; i < arrayOne.Length-1; i++)   // smaze z arrayOne element na indexu 0
                         {
                             arrayOne[i] = arrayOne[i+1];
                         }
+                        arrayOne[arrayOne.Length-1] =null;
                     }
                     while(arrayTwo.Length > 0)
                     {
                        sortedArray[sortedArray.Length-1] = arrayTwo[0]; /*na konec sortedArray pridam prvek na indexu 0 v arrayTwo*/
+                       arrayTwo[0] = null;
                         for(int i = 0; i < arrayTwo.Length-1; i++)   // smaze z arrayTwo element na indexu 0
                         {
                             arrayTwo[i] = arrayTwo[i+1];
                         } 
+                        arrayTwo[arrayTwo.Length-1] = null;
                     }
                 }
             return sortedArray;
         }
-        static int[] Divide(int[] array)
+        static int?[] Divide(int?[] array)
         {
-             int[] dividedArray = (int[])array.Clone(); // Řaď v tomto poli, ve kterém je výchoze zkopírováno všechno ze vstupního pole.
+             int?[] dividedArray = (int?[])array.Clone(); // Řaď v tomto poli, ve kterém je výchoze zkopírováno všechno ze vstupního pole.
                 if(dividedArray.Length == 1 )
                 {
                     return dividedArray;
                 }
                 int dividedArrayLenght = dividedArray.Length;       //rozdeli pole na pul
-                int [] arrayOne = new int[dividedArrayLenght/2];
+                int? [] arrayOne = new int?[dividedArrayLenght/2];
                 for(int i =0; i < arrayOne.Length; i++)
                 {               
                     arrayOne[i] = dividedArray[i];
                 }
-                int [] arrayTwo = new int[dividedArrayLenght/2];
+                int? [] arrayTwo = new int?[dividedArrayLenght/2];
                 for(int i = dividedArrayLenght/2+1; i < 2*arrayTwo.Length; i++)
                 {
                     arrayTwo[i] = dividedArray[i];
@@ -143,7 +152,7 @@ namespace SortingPlayground
              return MergeSort(arrayOne, arrayTwo,array);
         }
         //Naplní pole náhodnými čísly mezi 1 a velikostí pole.
-        static void FillArray(int[] array)
+        static void FillArray(int?[] array)
         
         {
             Random rng = new Random();
@@ -154,7 +163,7 @@ namespace SortingPlayground
         }
 
         //Vypíše pole do konzole.
-        static void WriteArrayToConsole(int[] array, string arrayName)
+        static void WriteArrayToConsole(int?[] array, string arrayName)
         {
             Console.Write(arrayName + " = [");
             for (int i = 0; i < array.Length; i++)
@@ -169,10 +178,10 @@ namespace SortingPlayground
         }
 
         //Zavolá postupně Bubble sort, Selection sort a Insertion sort pro zadané pole (a vypíše jeho jméno pro přehlednost)
-        static void SortArray(int[] array, string arrayName, int[] dividedArray, int [] mergedArray)
+        static void SortArray(int?[] array, string arrayName, int?[] dividedArray, int? [] mergedArray)
         {
             Console.WriteLine($"Řadím {arrayName}:");
-            int[] sortedArray;
+            int?[] sortedArray;
             
             
 
@@ -195,13 +204,13 @@ namespace SortingPlayground
         static void Main(string[] args)
         {
             
-            int[] smallArray = new int[10];
+            int?[] smallArray = new int?[10];
             FillArray(smallArray);
 
-            int[] mediumArray = new int[100];
+            int?[] mediumArray = new int?[100];
             FillArray(mediumArray);
 
-            int[] largeArray = new int[1000];
+            int?[] largeArray = new int?[1000];
             FillArray(largeArray);
 
             WriteArrayToConsole(smallArray, "Malé pole");

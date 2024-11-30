@@ -301,9 +301,9 @@ namespace _2D_Array_Playground
         
             return(coordinatesY: coordinatesX,coordinatesX: coordinatesY);
         }
-        static string[,] PlayerShooting(string [,] computerBattleGround, string [,] playerShootingBattleGround, int battleGroundSize)
+        static (string[,] playerShootingBattleGround, int lineBombardation) PlayerShooting(string [,] computerBattleGround, string [,] playerShootingBattleGround, int battleGroundSize,int lineBombardation )
         {
-            int lineBombardation = 3;
+             
             string shotType = " ";
             int test1 = 1;
             while(test1!= 0)
@@ -327,131 +327,157 @@ namespace _2D_Array_Playground
                 int coordinatesX = 0;
                 int coordinatesY = 0;
                 int test = 1;
+                int test2 = 1;
                 while(test!= 0)
                 {
-                    Console.WriteLine("zadej X souradnici leveho/horniho plicka bombardace (cislo v rozmezi 0 - " + battleGroundSize + ")");
-                    coordinatesX = NumberInBattleGroundTest(battleGroundSize);
-                    Console.WriteLine("zadej Y souradnici leveho/horniho plicka bombardace (cislo v rozmezi 0 - " + battleGroundSize + ")");
-                    coordinatesY = NumberInBattleGroundTest(battleGroundSize);
-            
-                        if(orientation == "vertikalne")
+                    while(test2 != 0)
+                    {
+                        Console.WriteLine("zadej X souradnici leveho/horniho plicka bombardace (cislo v rozmezi 0 - " + battleGroundSize + ")");
+                        coordinatesX = NumberInBattleGroundTest(battleGroundSize);
+                        Console.WriteLine("zadej Y souradnici leveho/horniho plicka bombardace (cislo v rozmezi 0 - " + battleGroundSize + ")");
+                        coordinatesY = NumberInBattleGroundTest(battleGroundSize);
+                        if(playerShootingBattleGround[coordinatesY,coordinatesX] == "-")
                         {
-                            if(coordinatesY + 2 <= battleGroundSize )
-                            {  
-                            
-                                for(int i = 0; i <= 3; i++)
-                                {
-                                    if(computerBattleGround[coordinatesY+i,coordinatesX] == "-")
-                                    {
-                                        test = 0;
-                                        Console.WriteLine(coordinatesY+i + "," + coordinatesX + " voda" );
-                                        playerShootingBattleGround[coordinatesY + i, coordinatesX] = "0";
-                                    }
-                                    else
-                                    {   
-                                        Console.WriteLine(coordinatesY+i + "," + coordinatesX + " zasah");
-                                        test = 0;
-                                        playerShootingBattleGround[coordinatesY + i, coordinatesX] = "W";
-                                        ShipTypeDestroyedTest(computerBattleGround, coordinatesX,coordinatesY,i);
-                                    }
-                                }
-                            }  
-                            else
-                            {
-                                Console.WriteLine("Bombardovani se nevejde do hraciho pole, zadej jine Y");
-                            }
+                            test2 =0;
                         }
                         else
                         {
-                            if(coordinatesX + 2 <= battleGroundSize )
-                            {                  
-                                for(int i =0; i <= 3; i++)
-                                {
-                                    if(computerBattleGround[coordinatesY,coordinatesX+i] == "-")
+                            Console.WriteLine(" na toto pole jsi uz strilel");
+                        }
+                    }
+                            if(orientation == "vertikalne")
+                            {
+                                if(coordinatesY + 2 <= battleGroundSize )
+                                {  
+                            
+                                    for(int plusY = 0; plusY <= 3; plusY++)
                                     {
-                                        test = 0;
-                                        Console.WriteLine(coordinatesY + "," + coordinatesX+i + " voda" );
-                                        playerShootingBattleGround[coordinatesY, coordinatesX + i] = "0";
-                                    }
-                                    else
-                                    {   
-                                        Console.WriteLine(coordinatesY + "," + coordinatesX+i + " zasah");
-                                        test = 0;
-                                        playerShootingBattleGround[coordinatesY, coordinatesX + i] = "W";  
-                                        ShipTypeDestroyedTest(computerBattleGround, coordinatesX,coordinatesY,i);
-                                    }
-                                }   
-                            }  
-                            else
-                            {   
-                                Console.WriteLine("Bombardovani se nevejde do hraciho pole, zadej jine X");
-                            }
-                        }      
+                                       if(computerBattleGround[coordinatesY+plusY,coordinatesX] == "-")
+                                       {
+                                           test = 0;
+                                           Console.WriteLine((coordinatesX+plusY) + "," + coordinatesY + " voda" );
+                                           playerShootingBattleGround[coordinatesY + plusY, coordinatesX] = "0";
+                                       }
+                                       else
+                                       {   
+                                           Console.WriteLine((coordinatesX+plusY) + "," + coordinatesY + " zasah");
+                                           test = 0;
+                                           playerShootingBattleGround[coordinatesY + plusY, coordinatesX] = "W";
+                                           ShipTypeDestroyedTest(computerBattleGround,playerShootingBattleGround, coordinatesX,coordinatesY,0,plusY);
+                                       }
+                                   }
+                               }  
+                               else
+                               {
+                                   Console.WriteLine("Bombardovani se nevejde do hraciho pole, zadej jine Y");
+                               }
+                           }
+                           else
+                           {
+                               if(coordinatesX + 2 <= battleGroundSize )
+                               {                  
+                                   for(int plusX =0; plusX <= 3; plusX++)
+                                   {
+                                       if(computerBattleGround[coordinatesY,coordinatesX+plusX] == "-")
+                                       {
+                                           test = 0;
+                                           Console.WriteLine((coordinatesX + plusX) + "," + coordinatesY + " voda" );
+                                           playerShootingBattleGround[coordinatesY, coordinatesX + plusX] = "0";
+                                       }
+                                       else
+                                           {   
+                                           Console.WriteLine((coordinatesX + plusX)+ "," + coordinatesY + " zasah");
+                                           test = 0;
+                                           playerShootingBattleGround[coordinatesY, coordinatesX + plusX] = "W";  
+                                           ShipTypeDestroyedTest(computerBattleGround,playerShootingBattleGround, coordinatesX,coordinatesY,plusX,0);
+                                       }
+                                   }   
+                               }  
+                               else
+                               {   
+                                   Console.WriteLine("Bombardovani se nevejde do hraciho pole, zadej jine X");
+                               }
+                           }
+                                 
                 }
             }
             else
             {
-                
-                Console.WriteLine("zadej X souradnici strely (cislo v rozmezi 0 - " + battleGroundSize + ")");
-                int coordinatesX = NumberInBattleGroundTest(battleGroundSize);
-                Console.WriteLine("zadej Y souradnici strely (cislo v rozmezi 0 - " + battleGroundSize + ")");
-                int coordinatesY = NumberInBattleGroundTest(battleGroundSize);
+                int test2 = 1;
+                int coordinatesX = 0;
+                int coordinatesY = 0;
+                while(test2 != 0) 
+                {
+  
+                    Console.WriteLine("zadej X souradnici strely (cislo v rozmezi 0 - " + battleGroundSize + ")");
+                     coordinatesX = NumberInBattleGroundTest(battleGroundSize);
+                    Console.WriteLine("zadej Y souradnici strely (cislo v rozmezi 0 - " + battleGroundSize + ")");
+                     coordinatesY = NumberInBattleGroundTest(battleGroundSize);
+                    if(playerShootingBattleGround[coordinatesY,coordinatesX] == "-")
+                    {
+                        test2 = 0;
+                    }
+                    else
+                    {
+                        Console.WriteLine(" na toto pole jsi uz strilel");
+                    }
+                }
                 if(computerBattleGround[coordinatesY,coordinatesX] == "-")
                 {
-                    Console.WriteLine(coordinatesY + "," + coordinatesX + " voda" );
+                    Console.WriteLine(coordinatesX + "," + coordinatesY + " voda" );
                     playerShootingBattleGround[coordinatesY, coordinatesX] = "0";
                 }
                 else
                 {   
-                    Console.WriteLine(coordinatesY + "," + coordinatesX + " zasah");
+                    Console.WriteLine(coordinatesX + "," + coordinatesY + " zasah");
                     playerShootingBattleGround[coordinatesY, coordinatesX] = "W";
-                    ShipTypeDestroyedTest(computerBattleGround, coordinatesX,coordinatesY,0);
+                    ShipTypeDestroyedTest(computerBattleGround,playerShootingBattleGround, coordinatesX,coordinatesY,0,0);
                 }
                 
             }
-            return(playerShootingBattleGround);
+            return(playerShootingBattleGround:playerShootingBattleGround, lineBombardation:lineBombardation);
         }
-        static void ShipTypeDestroyedTest(string[,] battleGround, int coordinatesX, int coordinatesY, int i) // zjisti jaky typ lodi byl zasazen a podle toho posle ShipDestroyedTest informaci jak velke okoli testovat
+        static void ShipTypeDestroyedTest(string[,] battleGround, string[,] shootingBattleGround, int coordinatesX, int coordinatesY, int plusX, int plusY) // zjisti jaky typ lodi byl zasazen a podle toho posle ShipDestroyedTest informaci jak velke okoli testovat
         {
             int test = 0;
-            if(battleGround[coordinatesY,coordinatesX+i] == "L")
+            if(battleGround[coordinatesY+plusY,coordinatesX+plusX] == "L")
             {
-                for(int j = 0; j <= 5;j++)
+                for(int j = 0; j < 5;j++)
                 {
-                    test = ShipDestroyedTest(battleGround,i,j,coordinatesX,coordinatesY,test);
+                    test = ShipDestroyedTest(shootingBattleGround,plusX, plusY,j,coordinatesX,coordinatesY,test);
                 }
                  if(test == 5)    
                  {
                     Console.WriteLine("zasah potopeno");
                  }                                          
             }
-            if(battleGround[coordinatesY,coordinatesX+i] == "B")
+            if(battleGround[coordinatesY + plusY,coordinatesX+plusX] == "B")
             {
-                for(int j = 0; j <= 4;j++)
+                for(int j = 0; j < 4;j++)
                 {
-                    test = ShipDestroyedTest(battleGround,i,j,coordinatesX,coordinatesY,test);
+                    test = ShipDestroyedTest(shootingBattleGround,plusX,plusY,j,coordinatesX,coordinatesY,test);
                 }
                  if(test == 4)    
                  {
                     Console.WriteLine("zasah potopeno");
                  }                                          
             }
-            if(battleGround[coordinatesY,coordinatesX+i] == "K" || battleGround[coordinatesY,coordinatesX+i-1] == "P")
+            if(battleGround[coordinatesY+plusY,coordinatesX+plusX] == "K" || battleGround[coordinatesY + plusY,coordinatesX+plusX] == "P")
             {
-                for(int j = 0; j <= 3;j++)
+                for(int j = 0; j < 3;j++)
                 {
-                    test = ShipDestroyedTest(battleGround,i,j,coordinatesX,coordinatesY,test);
+                    test = ShipDestroyedTest(shootingBattleGround,plusX,plusY,j,coordinatesX,coordinatesY,test);
                 }
                  if(test == 3)    
                  {
                     Console.WriteLine("zasah potopeno");
                  }                                          
             }
-            if(battleGround[coordinatesY,coordinatesX+i] == "T")
+            if(battleGround[coordinatesY + plusY,coordinatesX+plusX] == "T")
             {
-                for(int j = 0; j <= 2;j++)
+                for(int j = 0; j < 2;j++)
                 {
-                    test = ShipDestroyedTest(battleGround,i,j,coordinatesX,coordinatesY,test);
+                    test = ShipDestroyedTest(shootingBattleGround,plusX, plusY,j,coordinatesX,coordinatesY,test);
                 }
                  if(test == 2)    
                  {
@@ -460,31 +486,103 @@ namespace _2D_Array_Playground
             }
 
         }
-        static int ShipDestroyedTest(string[,] battleGround,int i, int j,int coordinatesX, int coordinatesY,int test) //zjisti jestli strela potopila lod
+        static int ShipDestroyedTest(string[,] battleGround,int plusX, int plusY, int j,int coordinatesX, int coordinatesY,int test) //zjisti jestli strela potopila lod
         {
             
                     try
                     {
-                        if(battleGround[coordinatesY,coordinatesX+i-1+j] == "W")
+                        if(battleGround[coordinatesY + plusY,coordinatesX + plusX + j] == "W")
                         {
                             test++;
                         }
-                        if(battleGround[coordinatesY,coordinatesX+i-1-j] == "W")
+                        else if(battleGround[coordinatesY + plusY,coordinatesX + plusX -j] == "W")
                         {
                             test++;
                         }
-                        if(battleGround[coordinatesY+j,coordinatesX+i-1] == "W")
+                        else if(battleGround[coordinatesY + j + plusY,coordinatesX+plusX] == "W")
                         {
                             test++;
                         }
-                        if(battleGround[coordinatesY-j,coordinatesX+i-1] == "W")
+                        else if(battleGround[coordinatesY-j + plusY,coordinatesX+plusX] == "W")
                         {
                             test++;
                         }
                     }
                     catch
                     {
+                        try
+                        {
+                                if(battleGround[coordinatesY + plusY,coordinatesX + plusX -j] == "W")
+                            {
+                                test++;
+                            }
+                            else if(battleGround[coordinatesY + j + plusY,coordinatesX+plusX] == "W")
+                            {
+                                test++;
+                            }
+                            else if(battleGround[coordinatesY-j + plusY,coordinatesX+plusX] == "W")
+                            {
+                                test++;
+                            }
+                        }
+                        catch
+                        {
+                            try
+                            {
+                                if(battleGround[coordinatesY + plusY,coordinatesX + plusX + j] == "W")
+                                {
+                                test++;
+                                }
+                                else if(battleGround[coordinatesY + j + plusY,coordinatesX+plusX] == "W")
+                                {
+                                    test++;
+                                }
+                                else if(battleGround[coordinatesY-j + plusY,coordinatesX+plusX] == "W")
+                                {
+                                    test++;
+                                }
+                            }
+                            catch
+                            {
+                                try
+                                {
+                                    if(battleGround[coordinatesY + plusY,coordinatesX + plusX + j] == "W")
+                                   {   
+                                   test++;
+                                   }
+                                   else if(battleGround[coordinatesY + plusY,coordinatesX + plusX -j] == "W")
+                                   {
+                                       test++;
+                                   }
+                                   else  if(battleGround[coordinatesY-j + plusY,coordinatesX+plusX] == "W")
+                                   {
+                                   test++;
+                                   }   
+                                }   
+                                catch
+                                {
+                                    try
+                                    {
+                                        if(battleGround[coordinatesY + plusY,coordinatesX + plusX + j] == "W")
+                                        {
+                                            test++;
+                                        }
+                                        else if(battleGround[coordinatesY + plusY,coordinatesX + plusX -j] == "W")
+                                        {
+                                            test++;
+                                        }
+                                        else if(battleGround[coordinatesY + j + plusY,coordinatesX+plusX] == "W")
+                                        {
+                                            test++;
+                                        } 
+                                    }
+                                    catch
+                                    {
 
+                                    }
+                                }
+                            } 
+                        }
                     }
                     return(test);   
         }
@@ -512,23 +610,20 @@ namespace _2D_Array_Playground
                 }    
             return(shotTypeToTest);
          }         
-        static (string[,] playerBattleGround, string[,] computerShootingBattleGround) ComputerShooting(string [,] playerBattleGround, string [,] computerShootingBattleGround, int battleGroundSize) // strelba pocitace
+        static (string[,] playerBattleGround, string[,] computerShootingBattleGround, int computerLineBombardation, int shotSuccess, int coordinatesX, int coordinatesY) ComputerShooting(string [,] playerBattleGround, string [,] computerShootingBattleGround, int battleGroundSize, int lineBombardation, int shotSuccess, int coordinatesX, int coordinatesY) // strelba pocitace
 
         {
             Random rnd = new Random();
-            int lineBombardation = 3; // zbivajici plosne bombardace
             string shotType = " ";
             int shotTypeNumber = 0; //  1 = plosna bombardace, sotatni = normalni
             int test1 = 1;
-            int shotSuccess = 0; // 0 = voda, 1 = zasah, 2 = zniceno
+            //shotSuccess  0 = voda, 1 = zasah, 2 = zniceno
             int shotDirectionY = 0; // posun po Y, po uspesnem zasahu - 1 = nahoru, 2 = dolu
             int shotDirectionX = 0; // posun po X, po uspesnem zasahu - 1 = doleva, 2 = doprava
             int shotDirection = 0; // 1 = osa Y, 2 = osa X
-            int coordinatesX = 0;
-            int coordinatesY = 0;
             while(test1!= 0) // kontroluje zbyvajici plosne bombardace a sanci ze ji pocitac pouzije
             {
-                if (shotSuccess == 0 || shotSuccess == 2)
+                if (shotSuccess == 0 || shotSuccess == 2) //urcuje sanci na plosne bombardovani, podle uspesnosti predchozi strely
                 {
                     shotTypeNumber = rnd.Next(15);
                 }
@@ -547,11 +642,12 @@ namespace _2D_Array_Playground
                 else
                 {
                     shotType = "normalni";
+                    test1 = 0;
                 }  
             }
             if(shotType == "plosna bombardace") // pouziti plosne bombardace
             {
-                if (shotSuccess == 0 || shotSuccess == 2)
+                if (shotSuccess == 0 || shotSuccess == 2) // predhcozi strela nebyla uspesna, nebo s ni byla znicena lod
                 { 
                     test1 = 1;
                     while(test1 != 0)
@@ -566,25 +662,25 @@ namespace _2D_Array_Playground
                     }
                         
                 }
-                else
+                else //predchozi strela byla uspesna
                 {
                     test1 = 1;
                     while(test1 != 0)
                     {
-                        shotDirection = rnd.Next(1,2); // 1 = Ypsilonova osa , 2 = Xova osa
-                        if(shotDirection == 1) // 1 = nahoru, 2 = dolu
+                        shotDirection = rnd.Next(1,3); // 1 = Ypsilonova osa , 2 = Xova osa
+                        if(shotDirection == 1) // po Y
                         {
-                            if(coordinatesY == 0)
-                            {
-                                shotDirectionY = 1;
-                            }
-                            else if( coordinatesY == battleGroundSize)
+                            if(coordinatesY == 0) // vylouci moznost nahoru , kdyz byl posledni zasah uplne nahore
                             {
                                 shotDirectionY = 2;
                             }
+                            else if( coordinatesY == battleGroundSize) // vylouci moznost dolu, kdyz byl posledni zasah uplne dole
+                            {
+                                shotDirectionY = 1;
+                            }
                             else
                             {
-                                shotDirectionY = rnd.Next(1,2);
+                                shotDirectionY = rnd.Next(1,3); // 1 = nahoru, 2 = dolu
                             }
                             if(shotDirectionY == 1) // nahoru
                             {
@@ -603,19 +699,19 @@ namespace _2D_Array_Playground
                                 }
                             }
                         }
-                        else // 1 == doleva , 2 == doprava
+                        else // po X
                         {
-                            if(coordinatesX == 0)
-                            {
-                                shotDirectionX = 1;
-                            }
-                            else if( coordinatesX == battleGroundSize)
+                            if(coordinatesX == 0) // vylouci moznost do leva, kdyz byla posledni strela uplne v levo
                             {
                                 shotDirectionX = 2;
                             }
+                            else if( coordinatesX == battleGroundSize) // vylouci moznost do prava, kdyz byla posledi strela uplne v pravo
+                            {
+                                shotDirectionX = 1;
+                            }
                             else
                             {
-                            shotDirectionX = rnd.Next(1,2);
+                            shotDirectionX = rnd.Next(1,3); // 1 == doleva , 2 == doprava
                             }
                             if(shotDirectionX == 1) // doleva
                             {
@@ -639,7 +735,7 @@ namespace _2D_Array_Playground
                 }
 
             }
-            else
+            else // normalni utok
             {
                 if (shotSuccess == 0 || shotSuccess == 2)
                 {
@@ -648,18 +744,20 @@ namespace _2D_Array_Playground
                     {
                         coordinatesX = rnd.Next(0,battleGroundSize);
                         coordinatesY = rnd.Next(0,battleGroundSize);
-                        if(computerShootingBattleGround[coordinatesX,coordinatesY] == "-")
+                        if(computerShootingBattleGround[coordinatesY,coordinatesX] == "-")
                         {
                             test1 = 0;
                             if(playerBattleGround[coordinatesY,coordinatesX] == "-")
                             {
                                 computerShootingBattleGround[coordinatesY, coordinatesX] = "0";
+                                playerBattleGround[coordinatesY, coordinatesX] = "0";
                                 shotSuccess = 0;
                             }
                             else
                             {   
                                 computerShootingBattleGround[coordinatesY, coordinatesX] = "W";
-                                shotSuccess = ComputerShipTypeDestroyedTest(playerBattleGround, coordinatesX,coordinatesY,0);;
+                                playerBattleGround[coordinatesY, coordinatesX] = "W";
+                                shotSuccess = ComputerShipTypeDestroyedTest(playerBattleGround, computerShootingBattleGround, coordinatesX,coordinatesY,0,0);;
                             }
                         }
                     }
@@ -669,20 +767,20 @@ namespace _2D_Array_Playground
                     test1 = 1;
                     while(test1 != 0)
                     {
-                        shotDirection = rnd.Next(1,2); // 1 = Ypsilonova osa , 2 = Xova osa
-                        if(shotDirection == 1) // 1 = nahoru, 2 = dolu
+                        shotDirection = rnd.Next(1,3); // 1 = Ypsilonova osa , 2 = Xova osa
+                        if(shotDirection == 1) // po Y
                         {
-                            if(coordinatesY == 0)
+                            if(coordinatesY == 0) // vylouci moznost nahoru, kdyz byl posledni vystrel uplne na hore
                             {
-                               shotDirectionY = 1;
+                               shotDirectionY = 2;
                             }
-                            else if( coordinatesY == battleGroundSize)
+                            else if( coordinatesY == battleGroundSize) // vylouci moznost dolu, kdyz byl posledni vystrel uplne dole
                             {
-                                shotDirectionY = 2;
+                                shotDirectionY = 1;
                             }
                             else
                             {
-                                shotDirectionY = rnd.Next(1,2);
+                                shotDirectionY = rnd.Next(1,3); // 1 = nahoru, 2 = dolu
                             }
                             if(shotDirectionY == 1) // nahoru
                             {
@@ -701,19 +799,19 @@ namespace _2D_Array_Playground
                                 }
                             }
                         }
-                        else // 1 == doleva , 2 == doprava
+                        else // po X
                         {
-                            if(coordinatesX == 0)
-                            {
-                                shotDirectionX = 1;
-                            }
-                            else if( coordinatesX == battleGroundSize)
+                            if(coordinatesX == 0) // vylouci moznost do leva, kdyz byl posledni vystrel uplne v levo
                             {
                                 shotDirectionX = 2;
                             }
+                            else if( coordinatesX == battleGroundSize) // vylouci moznost do prava, kdyz byl posledni vystrel uplne v pravo
+                            {
+                                shotDirectionX = 1;
+                            }
                             else
                             {
-                            shotDirectionX = rnd.Next(1,2);
+                            shotDirectionX = rnd.Next(1,3); // 1 == doleva , 2 == doprava
                             }
                             if(shotDirectionX == 1) // doleva
                             {
@@ -736,15 +834,16 @@ namespace _2D_Array_Playground
                 }
                 
             }
-            return(playerBattleGround: playerBattleGround, computerShootingBattleGround:computerShootingBattleGround);
+            return(playerBattleGround: playerBattleGround, computerShootingBattleGround:computerShootingBattleGround, computerLineBombardation: lineBombardation, shotSuccess:shotSuccess, coordinatesX:coordinatesX, coordinatesY:coordinatesY);
         }
+        // plosna bombardace pro pocitac
         static (string[,] playerBattleGround, string[,] computerShootingBattleGround, int lineBombardation, int shotSuccess, int coordinatesX, int coordinatesY) ComputerLineBombardation(string[,] playerBattleGround, string[,] computerShootingBattleGround, int battleGroundSize, int coordinatesX, int coordinatesY, int lineBombardation, int shotSuccess,int plusX, int plusY)
         {
             Random rnd = new Random();
             string orientation = " ";
             lineBombardation--;
-            int orientationNumber = rnd.Next(1,2);
-            if(orientationNumber == 1)
+            int orientationNumber = rnd.Next(1,2); // 1 = horizontalne . 2 = vertikalne
+            if(orientationNumber == 1)  // rozhodne mezi vertikalne a horizontalne
             {
                 orientation = "horizontalne";
             }
@@ -757,7 +856,7 @@ namespace _2D_Array_Playground
             {
                 if(orientation == "vertikalne")
                 {
-                    if(coordinatesY + plusY + 2 <= battleGroundSize + plusX )
+                    if(coordinatesY + plusY + 2 <= battleGroundSize)
                     {          
                         for(int i = 0; i <= 3; i++)
                         {
@@ -773,7 +872,7 @@ namespace _2D_Array_Playground
                                 test = 0;
                                 computerShootingBattleGround[coordinatesY + i + plusY, coordinatesX + plusX] = "W";
                                 playerBattleGround[coordinatesY + i + plusY, coordinatesX + plusX] = "W";
-                                shotSuccess =  ComputerShipTypeDestroyedTest(playerBattleGround, coordinatesX + plusX,coordinatesY + plusY,i);;
+                                shotSuccess =  ComputerShipTypeDestroyedTest(playerBattleGround,computerShootingBattleGround, coordinatesX + plusX,coordinatesY + plusY,i,0);;
                             }
                         }
                     }
@@ -800,7 +899,7 @@ namespace _2D_Array_Playground
                                 test = 0;
                                 computerShootingBattleGround[coordinatesY + plusY, coordinatesX + i + plusX] = "W";  
                                 playerBattleGround[coordinatesY + plusY, coordinatesX + i + plusX] = "W";
-                                shotSuccess = ComputerShipTypeDestroyedTest(playerBattleGround, coordinatesX + plusX,coordinatesY + plusY,i);;
+                                shotSuccess = ComputerShipTypeDestroyedTest(playerBattleGround,computerShootingBattleGround, coordinatesX + plusX,coordinatesY + plusY,0,i);;
                             }
                         }   
                     } 
@@ -812,15 +911,15 @@ namespace _2D_Array_Playground
             }   
             return(playerBattleGround:playerBattleGround,computerShootingBattleGround:computerShootingBattleGround,lineBombardation:lineBombardation,shotSuccess:shotSuccess, coordinatesX + plusX, coordinatesY + plusY);
         }
-        static int ComputerShipTypeDestroyedTest(string [,] battleGround, int coordinatesX, int coordinatesY, int i)
+        static int ComputerShipTypeDestroyedTest(string [,] battleGround, string[,] shootingBattleGround, int coordinatesX, int coordinatesY, int i, int l)
         {
               int test = 0;
-              int shotSuccess = 0;
+              int shotSuccess = 1;
             if(battleGround[coordinatesY,coordinatesX+i] == "L")
             {
-                for(int j = 0; j <= 5;j++)
+                for(int j = 0; j < 5;j++)
                 {
-                    test = ShipDestroyedTest(battleGround,i,j,coordinatesX,coordinatesY,test);
+                    test = ShipDestroyedTest(shootingBattleGround,i,l,j,coordinatesX,coordinatesY,test);
                 }
                  if(test == 5)    
                  {
@@ -829,20 +928,20 @@ namespace _2D_Array_Playground
             }
             if(battleGround[coordinatesY,coordinatesX+i] == "B")
             {
-                for(int j = 0; j <= 4;j++)
+                for(int j = 0; j < 4;j++)
                 {
-                    test = ShipDestroyedTest(battleGround,i,j,coordinatesX,coordinatesY,test);
+                    test = ShipDestroyedTest(shootingBattleGround,i,l,j,coordinatesX,coordinatesY,test);
                 }
                  if(test == 4)    
                  {
                     shotSuccess = 2;
                  }                                          
             }
-            if(battleGround[coordinatesY,coordinatesX+i] == "K" || battleGround[coordinatesY,coordinatesX+i-1] == "P")
+            if(battleGround[coordinatesY,coordinatesX+i] == "K" || battleGround[coordinatesY,coordinatesX+i] == "P")
             {
-                for(int j = 0; j <= 3;j++)
+                for(int j = 0; j < 3;j++)
                 {
-                    test =ShipDestroyedTest(battleGround,i,j,coordinatesX,coordinatesY,test);
+                    test =ShipDestroyedTest(shootingBattleGround,i,l,j,coordinatesX,coordinatesY,test);
                 }
                  if(test == 3)    
                  {
@@ -851,13 +950,13 @@ namespace _2D_Array_Playground
             }
             if(battleGround[coordinatesY,coordinatesX+i] == "T")
             {
-                for(int j = 0; j <= 2;j++)
+                for(int j = 0; j < 2;j++)
                 {
-                    test = ShipDestroyedTest(battleGround,i,j,coordinatesX,coordinatesY,test);
+                    test = ShipDestroyedTest(shootingBattleGround,i,l,j,coordinatesX,coordinatesY,test);
                 }
                  if(test == 2)    
                  {
-                    Console.WriteLine("zasah potopeno");
+                    shotSuccess = 2;
                  }                                          
             }
             return(shotSuccess);
@@ -868,14 +967,16 @@ namespace _2D_Array_Playground
             if(playerBattleGround[coordinatesY+plusY,coordinatesX + plusX] == "-")
                 {
                         computerShootingBattleGround[coordinatesY+ plusY, coordinatesX + plusX] = "0";
+                        playerBattleGround[coordinatesY+ plusY, coordinatesX + plusX] = "0";
                         shotSuccess = 0;
                 }
                 else
                 {   
                         computerShootingBattleGround[coordinatesY + plusY, coordinatesX + plusX] = "W";
-                        shotSuccess = ComputerShipTypeDestroyedTest(playerBattleGround, coordinatesX + plusX,coordinatesY + plusY,0);;
+                        playerBattleGround[coordinatesY + plusY, coordinatesX + plusX] = "W";
+                        shotSuccess = ComputerShipTypeDestroyedTest(playerBattleGround,computerShootingBattleGround, coordinatesX + plusX,coordinatesY + plusY,0,0);;
                 }
-            return(shotSuccess:shotSuccess,computerShootingBattleGround:computerShootingBattleGround,playerBattleGround:playerBattleGround, coordinatesX: coordinatesX + plusX, coordinatesY: coordinatesY + plusX);
+            return(shotSuccess:shotSuccess,computerShootingBattleGround:computerShootingBattleGround,playerBattleGround:playerBattleGround, coordinatesX: (coordinatesX + plusX), coordinatesY: (coordinatesY + plusY));
         }
          
         static void Main(string[] args)
@@ -883,6 +984,11 @@ namespace _2D_Array_Playground
             Console.WriteLine("Vitam te ve hre Battle Ship");
             Console.WriteLine("Jako prvni si zvol rozmery pole (10 - 15)");
                 int battleGroundSize = NumberTest()-1;
+                int lineBombardation = 3;
+                int computerLineBombaradtion =3;
+                int shotSuccess = 0;
+                int computerShotCoordinatesX = 0;
+                int computerShotCoordinatesY = 0;
                 string[,] playerBattleGround = GenerateBattleGround(battleGroundSize);
                 string[,] computerBattleGround = GenerateBattleGround(battleGroundSize);
                 string[,] playerShootingBattleGround = GenerateBattleGround(battleGroundSize);
@@ -913,28 +1019,32 @@ namespace _2D_Array_Playground
                 computerBattleGround = ComputerShipPlacement(battleGroundSize,computerBattleGround,2,"T");
                 //Console.WriteLine("pole pocitace");
                 //PrintBattleGround(computerBattleGround);
-                while(playerScore < 17 && computerScore <17)
+                while(playerScore < 17 && computerScore < 17)
                 {
+                    playerScore = 0;
+                    computerScore= 0;
                     for(int i =0; i <= battleGroundSize; i++)
                     {
                         for(int j = 0; j <= battleGroundSize; j++)
                         {
-                            if(computerShootingBattleGround[i,j] != "-" || playerBattleGround[i,j] != "0" || playerBattleGround[i,j] != "W")
+                            if(computerShootingBattleGround[i,j] =="w")
                             {
                                 computerScore ++;
                             }
-                            else if(playerShootingBattleGround[i,j] != "-" || computerBattleGround[i,j] != "0" || computerBattleGround[i,j] != "W")
+                            else if(playerShootingBattleGround[i,j] == "W" )
                             {
                                 playerScore ++;
                             }
                         }
                     }
                     Console.WriteLine("jsi na rade");
-                    playerShootingBattleGround = PlayerShooting(computerBattleGround,playerShootingBattleGround,battleGroundSize);
+                    (playerShootingBattleGround, lineBombardation) = PlayerShooting(computerBattleGround,playerShootingBattleGround,battleGroundSize,lineBombardation);
                     PrintBattleGround(playerShootingBattleGround);
-                    Console.WriteLine("pocitact je na rade");
-                    (playerBattleGround, computerShootingBattleGround) = ComputerShooting(playerBattleGround, computerShootingBattleGround, battleGroundSize);
+                    Console.WriteLine("pocitac je na rade");
+                    (playerBattleGround, computerShootingBattleGround, computerLineBombaradtion, shotSuccess, computerShotCoordinatesX,computerShotCoordinatesY ) = ComputerShooting(playerBattleGround, computerShootingBattleGround, battleGroundSize, computerLineBombaradtion, shotSuccess, computerShotCoordinatesX,computerShotCoordinatesY );
+                    Console.WriteLine("tvoje pole po zasahu pocitace");
                     PrintBattleGround(playerBattleGround);
+                    
                 }
                 if(playerScore == 17)
                 {

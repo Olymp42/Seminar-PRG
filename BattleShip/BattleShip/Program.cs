@@ -25,7 +25,6 @@ namespace _2D_Array_Playground
                     Console.Write(arrayToPrint[i,j] + " ");
                 }
                 Console.WriteLine();
-                Console.WriteLine();
             }
             Console.WriteLine();
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,20 +9,24 @@ namespace ClassPlayground
 {
     internal class BankAccount
     {
-        private int accountNumber;
-        private string holderName;
-        private string currency ;
-        private int balance;
+        public int accountNumber;
+        public string holderName;
+        public string currency ;
+        public int balance;
         
-        public BankAccount (string Name, string currency, int Number)
+        public BankAccount (string Name, string currency)
         {
+            
+            Random rnd = new Random();
+            accountNumber = rnd.Next(100000000, 1000000000);
             holderName = Name;
             this.currency = currency;
-            accountNumber = Number;
+            balance = 0;
+            
             
         }
         
-        public  int Deposit (int amount, int currency)
+        public  int Deposit (int amount)
         {
             
             balance += amount;
@@ -32,36 +37,63 @@ namespace ClassPlayground
             Console.WriteLine("Na uctu je: " + balance);
             return balance;
         }
-        public (int amount, string currency) MoneyAmount()
+        public int MoneyAmount(int amount, string currency, string accountCurrency)
         {
-            Console.WriteLine("Kolik penez");
-            int amount;
-            string stringAmount = Console.ReadLine();
-            try
+            if (accountCurrency == "CZK")
             {
-                amount = |Convert.ToInt32(stringAmount);
+                int amountInCzk;
+                if (currency == "EUR")
+                {
+                    amountInCzk = amount * 25;
+                }
+                else
+                {
+                    amountInCzk = amount;
+                }
+                return (amountInCzk);
             }
-            amount = 
-
-            Console.WriteLine("jaka mena");
-            string currency = Console.ReadLine();
-            return (amount, currency);
-
-
+            else
+            {
+                int amountInEur;
+                if (currency =="CZK")
+                {
+                    amountInEur = amount / 25;
+                }
+                else
+                {
+                    amountInEur= amount;
+                }
+                return (amountInEur);
+            }
         }
-        public int Convert(int amount, string currency) 
+        public int Withdraw (int amount, int balance) 
         {
-            int finalAmount;
-            switch (currency) 
+            if(balance >= amount) 
             {
-                case "CZK":
-                    finalAmount = amount;
-                case "EUR":
-                    finalAmount = amount * 25;
-                break;
-                    
+                balance = balance - amount;
             }
+            else
+            {
+                Console.WriteLine("na ucte neni dostatek penez");
+                
+            }
+            return balance;
         }
+  /*    public int Transfer (int firstAccnountNumber, int secondAccnountNumber,int amount)
+        {
+          if (balance >= amount)
+            {
+                balance = balance - amount;
+            }
+            else
+            {
+                Console.WriteLine("na ucte neni dostatek penez");
+
+            }
+            return balance;
+        }*/
+
+        
 
 
     }

@@ -68,8 +68,11 @@ namespace ClassPlayground
     {
         static void Main(string[] args)
         {
-            BankAccount account1 = new BankAccount("Bořek Stavitel", "CZK", 420600/330);
-            BankAccount.Deposit(BankAccount.MoneyAmount)
+            BankAccount account1 = new BankAccount("Bořek Stavitel", "CZK");
+            account1.Deposit(account1.MoneyAmount(1000, "EUR", account1.currency));
+            account1.GetBalance();
+            account1.balance = account1.Withdraw(account1.MoneyAmount(1000, "CZK", account1.currency), account1.balance);
+            account1.GetBalance();
 
             Console.ReadKey();
         }

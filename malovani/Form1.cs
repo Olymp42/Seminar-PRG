@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
+using System.Drawing.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +20,9 @@ namespace malovani
         public Graphics g;
         public Graphics graph;
         public Pen pen = new Pen(Color.Black, 3);
+        public Point shapeOld = new Point();
+        public Point shapeNew = new Point();
+        public bool buttonCliked = false;
         Bitmap surface;
         public Form1()
 
@@ -35,24 +40,36 @@ namespace malovani
 
         }
 
-        private void flowLayoutPanel1_MouseDown(object sender, MouseEventArgs e)
+        public void flowLayoutPanel1_MouseDown(object sender, MouseEventArgs e)
         {
             old = e.Location;
+            shapeOld = e.Location;
         }
 
         private void flowLayoutPanel1_MouseHover(object sender, EventArgs e)
         {
         }
 
-        private void flowLayoutPanel1_MouseMove(object sender, MouseEventArgs e)
+        public void flowLayoutPanel1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if(buttonCliked == false)
             {
-                current = e.Location;
-                g.DrawLine(pen, old, current);
-                old = current;
+                if (e.Button == MouseButtons.Left)
+                {
+                    current = e.Location;
+                    g.DrawLine(pen, old, current);
+                    old = current;
+                    
+                }
             }
+            else 
+            {
 
+                if (e.Button == MouseButtons.Left)
+                {
+                    shapeNew = e.Location;
+                }
+            }
         }
 
         private void buttonBLue_Click(object sender, EventArgs e)
@@ -110,26 +127,6 @@ namespace malovani
 
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            int i = 3;
-            int test = 0;
-            while (test == 0)
-            {
-                try
-                {
-                    i = int.Parse(textBoxWidth.Text);
-                    test = 1;
-                }
-                catch
-                {
-                    test = 0;
-                }
-            }
-              
-            pen.Width = i;
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -139,5 +136,26 @@ namespace malovani
         {
             g.FillRectangle(Brushes.White, 0, 0, flowLayoutPanel1.Width, flowLayoutPanel1.Height);
         }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+           trackBarWidth.TickFrequency = 1;
+            trackBarWidth.Maximum = 50;
+            trackBarWidth.Minimum = 1;
+            pen.Width = trackBarWidth.Value;
+
+        }
+
+        public void buttonRectangle_Click(object sender, EventArgs o)
+        {
+            buttonCliked = true;
+            int width = shapeNew.X - shapeOld.X;
+            int height = shapeNew.Y - shapeOld.Y;
+
+            
+             g.DrawRectangle(pen, shapeOld.X, shapeOld.Y, width, height);
+            
+        } 
+
     }
 }

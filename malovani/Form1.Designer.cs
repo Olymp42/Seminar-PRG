@@ -39,9 +39,11 @@
             this.buttonLightGreen = new System.Windows.Forms.Button();
             this.buttonPink = new System.Windows.Forms.Button();
             this.buttonWhite = new System.Windows.Forms.Button();
-            this.textBoxWidth = new System.Windows.Forms.TextBox();
-            this.labelWidth = new System.Windows.Forms.Label();
             this.buttonErase = new System.Windows.Forms.Button();
+            this.trackBarWidth = new System.Windows.Forms.TrackBar();
+            this.labelWidth = new System.Windows.Forms.Label();
+            this.buttonRectangle = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarWidth)).BeginInit();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -156,31 +158,11 @@
             this.buttonWhite.UseVisualStyleBackColor = false;
             this.buttonWhite.Click += new System.EventHandler(this.buttonWhite_Click);
             // 
-            // textBoxWidth
-            // 
-            this.textBoxWidth.Location = new System.Drawing.Point(537, 19);
-            this.textBoxWidth.Name = "textBoxWidth";
-            this.textBoxWidth.Size = new System.Drawing.Size(22, 20);
-            this.textBoxWidth.TabIndex = 12;
-            this.textBoxWidth.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // labelWidth
-            // 
-            this.labelWidth.AutoSize = true;
-            this.labelWidth.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.labelWidth.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelWidth.Location = new System.Drawing.Point(490, 22);
-            this.labelWidth.Name = "labelWidth";
-            this.labelWidth.Size = new System.Drawing.Size(41, 13);
-            this.labelWidth.TabIndex = 13;
-            this.labelWidth.Text = " width";
-            this.labelWidth.Click += new System.EventHandler(this.label1_Click);
-            // 
             // buttonErase
             // 
             this.buttonErase.BackColor = System.Drawing.SystemColors.HighlightText;
             this.buttonErase.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonErase.Location = new System.Drawing.Point(47, 22);
+            this.buttonErase.Location = new System.Drawing.Point(12, 9);
             this.buttonErase.Name = "buttonErase";
             this.buttonErase.Size = new System.Drawing.Size(47, 28);
             this.buttonErase.TabIndex = 14;
@@ -188,15 +170,48 @@
             this.buttonErase.UseVisualStyleBackColor = false;
             this.buttonErase.Click += new System.EventHandler(this.buttonErase_Click);
             // 
+            // trackBarWidth
+            // 
+            this.trackBarWidth.BackColor = System.Drawing.Color.White;
+            this.trackBarWidth.Location = new System.Drawing.Point(427, 25);
+            this.trackBarWidth.Name = "trackBarWidth";
+            this.trackBarWidth.Size = new System.Drawing.Size(100, 45);
+            this.trackBarWidth.TabIndex = 15;
+            this.trackBarWidth.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            // 
+            // labelWidth
+            // 
+            this.labelWidth.AutoSize = true;
+            this.labelWidth.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.labelWidth.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelWidth.Location = new System.Drawing.Point(453, 9);
+            this.labelWidth.Name = "labelWidth";
+            this.labelWidth.Size = new System.Drawing.Size(41, 13);
+            this.labelWidth.TabIndex = 13;
+            this.labelWidth.Text = " width";
+            this.labelWidth.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // buttonRectangle
+            // 
+            this.buttonRectangle.BackColor = System.Drawing.Color.White;
+            this.buttonRectangle.Location = new System.Drawing.Point(86, 9);
+            this.buttonRectangle.Name = "buttonRectangle";
+            this.buttonRectangle.Size = new System.Drawing.Size(68, 27);
+            this.buttonRectangle.TabIndex = 17;
+            this.buttonRectangle.Text = "Rectangle ";
+            this.buttonRectangle.UseVisualStyleBackColor = false;
+            this.buttonRectangle.Click += new System.EventHandler(this.buttonRectangle_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonRectangle);
+            this.Controls.Add(this.trackBarWidth);
             this.Controls.Add(this.buttonErase);
             this.Controls.Add(this.labelWidth);
-            this.Controls.Add(this.textBoxWidth);
             this.Controls.Add(this.buttonWhite);
             this.Controls.Add(this.buttonPink);
             this.Controls.Add(this.buttonLightGreen);
@@ -211,6 +226,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarWidth)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -229,9 +245,10 @@
         private System.Windows.Forms.Button buttonLightGreen;
         private System.Windows.Forms.Button buttonPink;
         private System.Windows.Forms.Button buttonWhite;
-        private System.Windows.Forms.TextBox textBoxWidth;
-        private System.Windows.Forms.Label labelWidth;
         private System.Windows.Forms.Button buttonErase;
+        private System.Windows.Forms.TrackBar trackBarWidth;
+        private System.Windows.Forms.Label labelWidth;
+        private System.Windows.Forms.Button buttonRectangle;
     }
 }
 

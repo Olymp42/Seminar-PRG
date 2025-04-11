@@ -76,6 +76,7 @@ namespace malovani
                         old = current;
                         break;
                     case 3:
+                        customColor = pen.Color;
                         Brush spray = new SolidBrush(customColor);
                         Random rnd = new Random();
                         int border = Convert.ToInt32(pen.Width);
@@ -83,9 +84,10 @@ namespace malovani
                         g.FillEllipse(spray, e.X + rnd.Next(border, border * 2), e.Y + rnd.Next(border, border * 2), size, size); 
                         spray.Dispose();
                         break;
-                    /*case 4: // kdyz je pomalejsi tak je sirsi
+                    case 4: // kdyz je pomalejsi tak je sirsi
+                        
                         current = e.Location;
-                        double distance = Math.Sqrt(Math.Pow(e.X - current.X, 2) + Math.Pow(e.Y - current.Y, 2));
+                        double distance = Math.Sqrt(Math.Pow(e.X - old.X, 2) + Math.Pow(e.Y - old.Y, 2));
                         double speed = distance / pen.Width; 
                         float pencilWidth = (float)(pen.Width / speed);
                         Pen pen4 = new Pen(pen.Color, pencilWidth);
@@ -93,7 +95,7 @@ namespace malovani
                         g.DrawLine(pen4, old, current);
                         old = current;
                         break;
-                    */
+                    
 
                 }
             }
@@ -207,7 +209,7 @@ namespace malovani
 
         private void buttonElipse_Click(object sender, EventArgs e)
         {
-            if (shapes == 1 || shapes == 3 || shapes == 4)
+            if (shapes == 1 || shapes == 3 || shapes == 4 || shapes == 5)
             {
                 reset = 0;
             }
@@ -231,7 +233,7 @@ namespace malovani
             customColor = pen.Color;
             SolidBrush brush = new SolidBrush(customColor);
 
-            if (shapes == 1 || shapes == 2 || shapes == 4)
+            if (shapes == 1 || shapes == 2 || shapes == 4 || shapes == 5)
             {
                 reset = 0;
             }
@@ -256,7 +258,7 @@ namespace malovani
             customColor = pen.Color;
             SolidBrush brush = new SolidBrush(customColor);
 
-            if (shapes == 1 || shapes == 2 || shapes == 3)
+            if (shapes == 1 || shapes == 2 || shapes == 3 || shapes == 5)
             {
                 reset = 0;
             }
@@ -303,6 +305,25 @@ namespace malovani
             reset = 0;
             buttonCliked = false;
             tool = 4;
+        }
+
+        private void buttonLine_Click(object sender, EventArgs e)
+        {
+            if (shapes == 1 || shapes == 2 || shapes == 3 || shapes == 4)
+            {
+                reset = 0;
+            }
+            if (reset == 0)
+            {
+                shapeNew.X = 0;
+                shapeNew.Y = 0;
+                shapeOld.X = 0;
+                shapeOld.Y = 0;
+            }
+            reset++;
+            buttonCliked = true;
+            g.DrawLine(pen,shapeOld,shapeNew);
+            shapes = 5;
         }
     }
 }
